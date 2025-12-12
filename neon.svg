@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1000" height="220" viewBox="0 0 1000 220" role="img" aria-label="Yuki's PortFolio neon">
+  <defs>
+    <!-- фоновий градієнт -->
+    <linearGradient id="bgGrad" x1="0" x2="1">
+      <stop offset="0%" stop-color="#07111a"/>
+      <stop offset="100%" stop-color="#061617"/>
+    </linearGradient>
+
+    <!-- текстовий контур для неону -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="b1"/>
+      <feGaussianBlur stdDeviation="12" result="b2"/>
+      <feMerge>
+        <feMergeNode in="b2"/>
+        <feMergeNode in="b1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- тонка лінія-пульсація для хакерського вигляду -->
+    <linearGradient id="neonLine" x1="0" x2="1">
+      <stop offset="0%" stop-color="#9fffbf"/>
+      <stop offset="50%" stop-color="#00ff99"/>
+      <stop offset="100%" stop-color="#9fffbf"/>
+    </linearGradient>
+
+    <style>
+      /* Шрифти: використовуємо system UI, якщо хочеш — заміни на свій */
+      .bg { fill: url(#bgGrad); }
+      .title {
+        font-family: "Cascadia Code", "Fira Code", "Consolas", "monospace";
+        font-weight: 700;
+        font-size: 84px;
+        letter-spacing: 2px;
+        fill: #bfffd6; /* базовий колір тексту */
+        paint-order: stroke fill markers;
+        stroke: rgba(0,255,153,0.18);
+        stroke-width: 1.5px;
+      }
+
+      /* неонове сяйво (пульсує) */
+      .neon {
+        filter: url(#glow);
+        animation: neonPulse 2.8s ease-in-out infinite;
+      }
+
+      /* тонке мерехтіння контуру */
+      .edge {
+        fill: none;
+        stroke: url(#neonLine);
+        stroke-width: 2.2;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        opacity: 0.9;
+        stroke-dasharray: 8 6;
+        animation: dashMove 4.6s linear infinite, edgePulse 2.8s ease-in-out infinite;
+      }
+
+      /* невелике горизонтальне підсвічування */
+      .glint {
+        fill: rgba(255,255,255,0.05);
+        filter: url(#glow);
+        animation: glintMove 5s linear infinite;
+      }
+
+      @keyframes neonPulse {
+        0% { filter: drop-shadow(0 0 6px #00ff99) drop-shadow(0 0 14px #00ff99) ; opacity: 0.95; }
+        50% { filter: drop-shadow(0 0 12px #00ff99) drop-shadow(0 0 28px #00ff99); opacity: 1; }
+        100% { filter: drop-shadow(0 0 6px #00ff99) drop-shadow(0 0 14px #00ff99); opacity: 0.95; }
+      }
+
+      @keyframes dashMove {
+        0% { stroke-dashoffset: 0; }
+        100% { stroke-dashoffset: 48; }
+      }
+
+      @keyframes edgePulse {
+        0% { opacity: 0.7; transform: translateY(0px); }
+        50% { opacity: 1; transform: translateY(-1px); }
+        100% { opacity: 0.7; transform: translateY(0px); }
+      }
+
+      @keyframes glintMove {
+        0% { transform: translateX(-30%); opacity: 0; }
+        40% { opacity: 0.18; }
+        60% { opacity: 0.18; }
+        100% { transform: translateX(130%); opacity: 0; }
+      }
+
+      /* адаптивність тексту при вбудовуванні */
+      text { dominant-baseline: middle; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Фон -->
+  <rect class="bg" x="0" y="0" width="100%" height="100%" rx="8" />
+
+  <!-- Світло-зелена тонка лінія внизу -->
+  <rect x="60" y="172" width="880" height="4" fill="url(#neonLine)" opacity="0.9"/>
+
+  <!-- Текст заголовка -->
+  <g transform="translate(500,110)">
+    <!-- зовнішній контур (тонкий) -->
+    <text class="title edge" x="0" y="0">Yuki's PortFolio</text>
+
+    <!-- основний неоновий текст -->
+    <text class="title neon" x="0" y="0">Yuki's PortFolio</text>
+
+    <!-- додаткова блискуча смуга, що рухається -->
+    <rect class="glint" x="-420" y="-52" width="180" height="120" transform="rotate(-16)" />
+  </g>
+</svg>
